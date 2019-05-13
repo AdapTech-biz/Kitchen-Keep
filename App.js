@@ -1,13 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import reducers from './src/reducers';
 import MainScreen from './src/screens/MainScreen';
 import BarCodeScan from './src/screens/BarCodeScan';
 
@@ -39,7 +34,10 @@ const AppNavigator = createStackNavigator(
 const AppContainer = createAppContainer(AppNavigator);
 
 const App = () => (
-  <AppContainer />
+  <Provider store={createStore(reducers)} >
+    <AppContainer />
+  </Provider>
+  
   
 );
 

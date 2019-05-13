@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
 import ListBackGroundView from '../components/ListBackGroundView';
 import InventoryList from '../components/InventoryList';
@@ -9,47 +10,20 @@ class MainScreen extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Kitchen Keep',
         headerRight: [
-            (<NavBarItem imageType='search' />),
+            (<NavBarItem key='search' imageType='search' />),
             (<NavBarItem 
+                key='barcode'
                 imageType='barcode' 
                 onPress={() => navigation.navigate('BarCodeScan')} 
             />)
-        ],
-        headerLeft: (<NavBarItem 
-                        imageType='drawer'
-                        onPress={() => navigation.navigate('Drawer')} 
-        />)
+        ]
         });
-
-    constructor() {
-        super();
-        this.showMenuPressed = this.showMenuPressed.bind(this);
-    }
-    
-    state = { displayMenu: false, mainDisplayFlex: 1 }
-
-
-    componentWillMount() {
-        this.props.navigation.setParams({ showMenuPressed: this.showMenuPressed });
-    }
-
-    displayMenu() {
-        if (this.state.displayMenu) {
-            return (
-              <View style={{ backgroundColor: 'blue', zIndex: 2, width: 50 }} />      
-            ); 
-        } 
-    }
-    
-    showMenuPressed() {
-        this.setState(pState => ({ displayMenu: !pState.displayMenu }));
-    }
 
     render() {
         return (
+            
             <View style={{ flex: 1, flexDirection: 'row' }}>
-               {this.displayMenu()}
-                <View style={{ flex: this.state.mainDisplayFlex }} >
+                <View >
                     <ListBackGroundView> 
                     <InventoryList />
                     </ListBackGroundView>
@@ -60,4 +34,7 @@ class MainScreen extends Component {
     }
 }
 
-export default MainScreen;
+// const mapPropsToState = (state) => (
+//     { inventoryList: state.inventoryList.inventory });
+
+export default connect()(MainScreen);
