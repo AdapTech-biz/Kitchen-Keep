@@ -19,7 +19,6 @@ const Freshness = () => (
 const styles = StyleSheet.create({
     containerView: {
         padding: 5,
-        flex: 1,
         flexDirection: 'column'
     },
     textStyle: {

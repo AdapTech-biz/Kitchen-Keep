@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FlatList } from 'react-native';
+import { SectionList } from 'react-native';
 import InventoryItem from './InventoryItem';
 import ListHeader from './ListHeader';
+import SectionView from '../SectionView';
 
 
 class InventoryList extends Component {
     render() {
+        // console.log(this.props);
         return (
-            <FlatList
-            data={this.props.inventoryList}
-            renderItem={({ item }) => <InventoryItem title={item.key} />}
+            
+            <SectionList
+            renderItem={({ item }) => <InventoryItem key={item} title={item} />}
+            renderSectionHeader={({ section: { title } }) => (
+                <SectionView title={title} style={{ fontWeight: 'bold' }} />
+            )}
+            sections={this.props.inventoryList}
+            keyExtractor={(item, index) => item + index}
             ListHeaderComponent={<ListHeader />}
             />
         );

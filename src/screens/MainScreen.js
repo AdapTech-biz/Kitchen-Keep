@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
-import ListBackGroundView from '../components/ListBackGroundView';
+import { Container, Header, Content, Card } from 'native-base';
 import InventoryList from '../components/InventoryList';
 import NavBarItem from '../components/NavBarItem';
+import { searchInventory } from '../actions/index';
+import SearchBar from '../components/SearchBar';
 
 class MainScreen extends Component {
 
     static navigationOptions = ({ navigation }) => ({
-        title: 'Kitchen Keep',
+        headerTitle: 'Kitchen',
         headerRight: [
-            (<NavBarItem key='search' imageType='search' />),
+            (<NavBarItem 
+                key='search' 
+                imageType='search'
+                onPress={() => this.props.searchInventory(true)} 
+            />),
             (<NavBarItem 
                 key='barcode'
                 imageType='barcode' 
@@ -19,22 +24,37 @@ class MainScreen extends Component {
         ]
         });
 
-    render() {
-        return (
-            
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View >
-                    <ListBackGroundView> 
-                    <InventoryList />
-                    </ListBackGroundView>
-                </View>
+    searchPressed() {
+        this.props.searchInventory(true);
+    }
 
-            </View>
+    displaySearch() {
+        if (this.props.searching) {
+            return (<SearchBar />);
+        }
+        return 'Kitchen Keep';
+    }
+
+    render() {
+        console.log(this.props);
+        return (
+            <Container>
+                <Content padder>
+                <InventoryList />
+                </Content>
+            </Container>
+            
         );
     }
 }
 
-// const mapPropsToState = (state) => (
-//     { inventoryList: state.inventoryList.inventory });
+const mapPropsToState = (state) => {
+    if (state.mainScreen.search) {
+        return { header: <SearchBar /> };
+    }
+    return { header: 'Kitchen Keep' };
 
-export default connect()(MainScreen);
+    // return({ searching: state.mainScreen.search })
+};
+
+export default connect(mapPropsToState, { searchInventory })(MainScreen);

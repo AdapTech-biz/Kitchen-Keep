@@ -8,8 +8,7 @@ class QuanityBadge extends Component {
     styles = StyleSheet.create({
         containerView: {
             padding: 5,
-            flexDirection: 'column',
-            flex: 1
+            flexDirection: 'column'
         },
         textStyle: {
             fontSize: 15,
