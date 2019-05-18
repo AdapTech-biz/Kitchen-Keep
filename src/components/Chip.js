@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { filterInventory } from '../actions/index';
 
@@ -40,12 +40,16 @@ class Chip extends Component {
                 onPress={() => this.props.filterInventory(this.props.chipName)} 
                 style={this.styles.viewContainer} 
             >
+            <View style={{ alignSelf: 'baseline', backgroundColor: 'yellow', borderRadius: 10, marginRight: 5 }}>
                 <Text style={this.styles.numberStyle}>
                     { this.props.number }
                 </Text>
-                <Text style={this.styles.text}>
-                    { this.props.chipName }
-                </Text>
+            </View>
+                    <Text style={this.styles.text}>
+                        { this.props.chipName }
+                    </Text>
+                
+                
             </TouchableOpacity>
         );
     }

@@ -26,7 +26,8 @@ class InventoryItem extends Component {
         },
         itemDetails: {
             flexDirection: 'row',
-            alignSelf: 'center'
+            flex: 1,
+            justifyContent: 'space-around'
         },
         cardBottom: {
             borderBottomLeftRadius: 10,
@@ -48,7 +49,10 @@ class InventoryItem extends Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={() => this.props.selectedItem(this.props.title)}>
+            <TouchableOpacity 
+                onPress={() => this.props.selectedItem(this.props.title)}
+                style={{ flex: 1 }}
+            >
                 <Card style={this.styles.cardBottom}>
                     <CardItem header>
                         <Text style={this.styles.textStyle}>{this.props.title}</Text>
